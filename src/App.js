@@ -1,19 +1,10 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import Form from "./Pages/Form/Form";
-import Table from "./Pages/Table/Table";
+import Home from "./Pages/Home/Home";
+import router from "./Routes/Routes";
 
 function App() {
-  return (
-    <div
-      className="pb-80"
-      style={{
-        background: `url("https://coolbackgrounds.io/images/backgrounds/index/compute-ea4c57a4.png")`,
-      }}
-    >
-      <Form />
-      <Table />
-    </div>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;
