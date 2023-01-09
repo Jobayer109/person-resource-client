@@ -1,8 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { BounceLoader } from "react-spinners";
 import UpdateModal from "./UpdateModal";
 
 const Table = () => {
+  const {
+    data: resources,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["resources"],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/people`);
+      const data = res.json();
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <BounceLoader
+        color="#FFBF00"
+        style={{ position: "fixed", top: "50%", left: "48%", paddingBottom: "100px" }}
+      />
+    );
+  }
   return (
     <div className="overflow-x-auto w-[90%] mx-auto">
       <table className="table w-full ">
@@ -18,21 +41,23 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>First name</td>
-            <td>Last name</td>
-            <td>Age</td>
-            <td>Email</td>
-            <td>
-              <label htmlFor="hobby-update-modal">
-                <FaEdit className="ml-4 text-blue-700 text-xl hover:text-2xl duration-300  cursor-pointer" />
-              </label>
-            </td>
-            <td>
-              <FaTrash className="ml-4 text-red-600 text-xl hover:text-2xl duration-300 cursor-pointer" />
-            </td>
-          </tr>
+          {resources?.map((resource, i) => (
+            <tr key={i}>
+              <td>{i + 1}</td>
+              <td>{resource.firstName}</td>
+              <td>{resource.lastName}</td>
+              <td>{resource.age}</td>
+              <td>{resource.email}</td>
+              <td>
+                <label htmlFor="hobby-update-modal">
+                  <FaEdit className="ml-4 text-blue-700 text-xl hover:text-2xl duration-300  cursor-pointer" />
+                </label>
+              </td>
+              <td>
+                <FaTrash className="ml-4 text-red-600 text-xl hover:text-2xl duration-300 cursor-pointer" />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
 

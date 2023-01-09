@@ -17,7 +17,7 @@ const FormModal = () => {
       email: data.email,
     };
     console.log(personInfo);
-    fetch(`http://localhost:5000/resources`, {
+    fetch(`http://localhost:5000/people`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -30,9 +30,9 @@ const FormModal = () => {
         if (data.acknowledged) {
           toast.success("Info added successfully");
         }
-        // if (data.acknowledged === false) {
-        //   toast.error(data.message);
-        // }
+        if (data.acknowledged === false) {
+          toast.error(data.message);
+        }
       });
   };
   return (
