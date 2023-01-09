@@ -1,17 +1,34 @@
-import React, { useState } from "react";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import google from "../../assets/images/google.png";
+import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Login = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { signInUser, googleSignIn } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleSignIn = () => {};
+  const handleSignIn = (data) => {
+    signInUser(data.email, data.password)
+      .then((result) => {
+        navigate("/");
+        toast.success("Welcome to Homepage");
+        setError("");
+        console.log(result.user);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
 
   return (
     <div className="text-center h-screen bg-yellow-300 py-20">
@@ -50,7 +67,7 @@ const Login = () => {
         <input
           type="submit"
           value="Sign in"
-          className="border w-80 bg-blue-600 px-2 py-2 mt-5 rounded-md font-medium hover:bg-blue-700 text-white"
+          className="border w-80 bg-blue-600 px-2 py-2 mt-5 rounded-md font-medium hover:bg-blue-700 text-white cursor-pointer"
         />
         <div className="w-[27%] mx-auto cursor-pointer ">
           <div className="divider  text-xs text-green-600">OR</div>
@@ -62,7 +79,7 @@ const Login = () => {
             <input
               type="button"
               value="Continue with google"
-              className="md:ml-10 lg:ml-16  font-medium text-sm hidden md:block lg:block"
+              className="md:ml-10 lg:ml-16 cursor-pointer font-medium text-sm hidden md:block lg:block"
             />
           </div>
           <p className="text-xs mt-2">

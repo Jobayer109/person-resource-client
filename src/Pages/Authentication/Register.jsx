@@ -1,17 +1,34 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import google from "../../assets/images/google.png";
+import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Register = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { createUser, update } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleRegister = () => {};
+  const handleRegister = (data) => {
+    createUser(data.email, data.password)
+      .then((result) => {
+        update(data.name);
+        toast.success("User created successfully");
+        navigate("/login");
+        setError("");
+        console.log(result.user);
+      })
+      .catch((error) => {
+        setError(error.code, error.message);
+        return;
+      });
+  };
 
   return (
     <div className="text-center h-screen bg-yellow-300 py-20">
@@ -57,7 +74,7 @@ const Register = () => {
         <input
           type="submit"
           value="Register"
-          className="border w-80 bg-blue-600 px-2 py-2 mt-5 rounded-md font-medium hover:bg-blue-700 text-white"
+          className="border w-80 bg-blue-600 px-2 py-2 mt-5 rounded-md font-medium hover:bg-blue-700 text-white cursor-pointer"
         />
         <div className="w-[27%] mx-auto cursor-pointer ">
           <div className="divider  text-xs text-blue-600">OR</div>
