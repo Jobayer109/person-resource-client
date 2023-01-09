@@ -9,7 +9,7 @@ import { AuthContext } from "../../Contexts/AuthProvider";
 const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { signInUser, googleSignIn } = useContext(AuthContext);
+  const { user, signInUser, googleSignIn } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
   const {
     register,
@@ -29,6 +29,22 @@ const Login = () => {
         setError(error.message);
       });
   };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn(googleProvider)
+      .then((result) => {
+        navigate("/");
+        toast.success("Welcome to Homepage");
+        console.log(result.user);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  // useEffect(() => {
+  //     navigate()
+  // },[])
 
   return (
     <div className="text-center h-screen bg-yellow-300 py-20">
@@ -72,7 +88,7 @@ const Login = () => {
         <div className="w-[27%] mx-auto cursor-pointer ">
           <div className="divider  text-xs text-green-600">OR</div>
           <div
-            // onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignIn}
             className="md:flex lg:flex md:items-center lg:items-center md:border lg:border border-black bg-yellow-300 rounded-full p-1 hover:bg-blue-200"
           >
             <img src={google} alt="" className="h-8 mx-auto md:mx-0 lg:mx-0" />

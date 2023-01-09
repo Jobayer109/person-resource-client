@@ -8,7 +8,7 @@ const FormModal = () => {
     formState: { errors },
   } = useForm();
 
-  const handleAddInfo = () => {};
+  const handleAddInfo = (data) => {};
   return (
     <div>
       <input type="checkbox" id="person_resource_modal" className="modal-toggle" />
