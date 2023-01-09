@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 const FormModal = () => {
   const {
@@ -8,7 +9,32 @@ const FormModal = () => {
     formState: { errors },
   } = useForm();
 
-  const handleAddInfo = (data) => {};
+  const handleAddInfo = (data) => {
+    const personInfo = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      age: data.age,
+      email: data.email,
+    };
+    console.log(personInfo);
+    fetch(`http://localhost:5000/resources`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(personInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Info added successfully");
+        }
+        // if (data.acknowledged === false) {
+        //   toast.error(data.message);
+        // }
+      });
+  };
   return (
     <div>
       <input type="checkbox" id="person_resource_modal" className="modal-toggle" />
