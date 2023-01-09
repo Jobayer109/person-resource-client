@@ -14,7 +14,7 @@ const Login = () => {
   const handleSignIn = () => {};
 
   return (
-    <div className="text-center my-16 bg-yellow-300 py-20">
+    <div className="text-center h-screen bg-yellow-300 py-20">
       <Link to="/">
         <p className="absolute right-20 font-bold ">Back to Home</p>
       </Link>
@@ -26,7 +26,7 @@ const Login = () => {
           name="email"
           {...register("email", { required: true })}
           placeholder="Email"
-          className="border w-80 p-3 text-sm rounded-md mt-2 border-blue-500 outline-none"
+          className="border w-80 p-3 text-sm rounded-md mt-2 border-black bg-yellow-300 outline-none"
         />{" "}
         <br />
         {errors.email?.type === "required" && (
@@ -38,7 +38,7 @@ const Login = () => {
           name="password"
           {...register("password", { required: true })}
           placeholder="Password"
-          className="border w-80 p-3 text-sm rounded-md mt-2 border-blue-500 outline-none"
+          className="border w-80 p-3 text-sm rounded-md mt-2 border-black bg-yellow-300 outline-none"
         />{" "}
         <br />
         {errors.password?.type === "required" && (
@@ -56,7 +56,7 @@ const Login = () => {
           <div className="divider  text-xs text-green-600">OR</div>
           <div
             // onClick={handleGoogleSignIn}
-            className="md:flex lg:flex md:items-center lg:items-center md:border lg:border border-blue-500 rounded-full p-1 hover:bg-blue-200"
+            className="md:flex lg:flex md:items-center lg:items-center md:border lg:border border-black bg-yellow-300 rounded-full p-1 hover:bg-blue-200"
           >
             <img src={google} alt="" className="h-8 mx-auto md:mx-0 lg:mx-0" />
             <input
