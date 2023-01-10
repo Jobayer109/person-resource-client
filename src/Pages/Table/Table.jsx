@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { BounceLoader } from "react-spinners";
 import UpdateModal from "./UpdateModal";
 
 const Table = () => {
-  const {
-    data: resources,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const [modalData, setModalData] = useState({
+    firstName: "",
+    lastName: "",
+    age: "",
+    email: "",
+  });
+  const { data: resources, isLoading } = useQuery({
     queryKey: ["resources"],
     queryFn: async () => {
       const res = await fetch(`http://localhost:5000/people`);
@@ -26,9 +28,17 @@ const Table = () => {
       />
     );
   }
+
+  const handleRowData = (id) => {
+    fetch(`http://localhost:5000/people/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setModalData(data);
+      });
+  };
   return (
     <div className="overflow-x-auto w-[90%] mx-auto">
-      <table className="table w-full ">
+      <table className="table w-full font-sans">
         <thead>
           <tr className="text-blue-700 font-thin">
             <th>ID</th>
@@ -49,8 +59,11 @@ const Table = () => {
               <td>{resource.age}</td>
               <td>{resource.email}</td>
               <td>
-                <label htmlFor="hobby-update-modal">
-                  <FaEdit className="ml-4 text-blue-700 text-xl hover:text-2xl duration-300  cursor-pointer" />
+                <label htmlFor="people-update-modal">
+                  <FaEdit
+                    onClick={() => handleRowData(resource._id)}
+                    className="ml-4 text-blue-700 text-xl hover:text-2xl duration-300  cursor-pointer"
+                  />
                 </label>
               </td>
               <td>
@@ -61,7 +74,7 @@ const Table = () => {
         </tbody>
       </table>
 
-      <UpdateModal></UpdateModal>
+      <UpdateModal modalData={modalData}></UpdateModal>
     </div>
   );
 };
