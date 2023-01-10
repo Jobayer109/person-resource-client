@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -8,7 +9,9 @@ import { AuthContext } from "../../Contexts/AuthProvider";
 const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { createUser, update } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
+
+  const { createUser, update, googleSignIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -27,6 +30,18 @@ const Register = () => {
       .catch((error) => {
         setError(error.code, error.message);
         return;
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn(googleProvider)
+      .then((result) => {
+        navigate("/");
+        toast.success("Welcome to Homepage");
+        console.log(result.user);
+      })
+      .catch((error) => {
+        setError(error.message);
       });
   };
 
@@ -79,7 +94,7 @@ const Register = () => {
         <div className="w-[27%] mx-auto cursor-pointer ">
           <div className="divider  text-xs text-blue-600">OR</div>
           <div
-            // onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignIn}
             className="md:flex lg:flex md:items-center lg:items-center md:border lg:border border-black rounded-full p-1 hover:bg-blue-200"
           >
             <img src={google} alt="" className="h-8 mx-auto md:mx-0 lg:mx-0" />

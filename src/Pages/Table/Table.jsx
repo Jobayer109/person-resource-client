@@ -20,7 +20,7 @@ const Table = () => {
   } = useQuery({
     queryKey: ["resources"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/people`);
+      const res = await fetch(`https://person-resource-server.vercel.app/people`);
       const data = res.json();
       return data;
     },
@@ -36,7 +36,7 @@ const Table = () => {
   }
 
   const handleRowData = (id) => {
-    fetch(`http://localhost:5000/people/${id}`)
+    fetch(`https://person-resource-server.vercel.app/people/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setModalData(data);
@@ -46,7 +46,7 @@ const Table = () => {
   const handleDelete = (id) => {
     const confirmed = window.confirm("Are you sure want to delete");
     if (confirmed) {
-      fetch(`http://localhost:5000/people/${id}`, {
+      fetch(`https://person-resource-server.vercel.app/people/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -60,7 +60,7 @@ const Table = () => {
   };
 
   const handleViewDetails = (id) => {
-    fetch(`http://localhost:5000/people/${id}`)
+    fetch(`https://person-resource-server.vercel.app/people/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setModalData(data);

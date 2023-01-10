@@ -17,7 +17,7 @@ const FormModal = () => {
       email: data.email,
     };
     console.log(personInfo);
-    fetch(`http://localhost:5000/people`, {
+    fetch(`https://person-resource-server.vercel.app/people`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

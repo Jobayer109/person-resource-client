@@ -15,7 +15,7 @@ const UpdateModal = ({ modalData }) => {
   };
 
   const handleUpdate = (id) => {
-    fetch(`http://localhost:5000/people/${id}`, {
+    fetch(`https://person-resource-server.vercel.app/people/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
