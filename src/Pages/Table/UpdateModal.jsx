@@ -34,10 +34,10 @@ const UpdateModal = ({ modalData }) => {
     <div>
       <input type="checkbox" id="people-update-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box relative w-96">
+        <div className="modal-box relative bg-yellow-400 w-96">
           <label
             htmlFor="people-update-modal"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle bg-red-600 hover:bg-red-700 absolute right-2 top-2"
           >
             ✕
           </label>
@@ -83,7 +83,7 @@ const UpdateModal = ({ modalData }) => {
                 onClick={() => handleUpdate(_id)}
                 type="submit"
                 value="Update now"
-                className="w-72 btn px-12 py-2  rounded-sm bg-orange-600 hover:bg-orange-700 shadow-xl my-6"
+                className="w-72 btn px-12 py-2  rounded-sm bg-blue-600 hover:bg-blue-700 shadow-xl my-6"
               />
             </form>
           </div>

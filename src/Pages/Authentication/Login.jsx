@@ -1,8 +1,8 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import google from "../../assets/images/google.png";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
@@ -11,6 +11,9 @@ const Login = () => {
   const navigate = useNavigate();
   const { user, signInUser, googleSignIn } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     handleSubmit,
@@ -20,7 +23,6 @@ const Login = () => {
   const handleSignIn = (data) => {
     signInUser(data.email, data.password)
       .then((result) => {
-        navigate("/");
         toast.success("Welcome to Homepage");
         setError("");
         console.log(result.user);
@@ -33,7 +35,6 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleSignIn(googleProvider)
       .then((result) => {
-        navigate("/");
         toast.success("Welcome to Homepage");
         console.log(result.user);
       })
@@ -42,15 +43,14 @@ const Login = () => {
       });
   };
 
-  // useEffect(() => {
-  //     navigate()
-  // },[])
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [from, navigate, user]);
 
   return (
     <div className="text-center h-screen bg-yellow-300 py-20">
-      <Link to="/">
-        <p className="absolute right-20 font-bold ">Back to Home</p>
-      </Link>
       <h3 className="text-2xl font-semibold text-blue-600 mb-6">Sign in</h3>
       <p className="text-xs text-red-600 text-center font-semibold">{error}</p>
       <form onSubmit={handleSubmit(handleSignIn)}>
