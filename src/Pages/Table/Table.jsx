@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { BounceLoader } from "react-spinners";
 import UpdateModal from "./UpdateModal";
@@ -11,7 +12,11 @@ const Table = () => {
     age: "",
     email: "",
   });
-  const { data: resources, isLoading } = useQuery({
+  const {
+    data: resources,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["resources"],
     queryFn: async () => {
       const res = await fetch(`http://localhost:5000/people`);
@@ -35,6 +40,22 @@ const Table = () => {
       .then((data) => {
         setModalData(data);
       });
+  };
+
+  const handleDelete = (id) => {
+    const confirmed = window.confirm("Are you sure want to delete");
+    if (confirmed) {
+      fetch(`http://localhost:5000/people/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount) {
+            refetch();
+            toast.success("Deleted successfully");
+          }
+        });
+    }
   };
   return (
     <div className="overflow-x-auto w-[90%] mx-auto">
@@ -67,7 +88,10 @@ const Table = () => {
                 </label>
               </td>
               <td>
-                <FaTrash className="ml-4 text-red-600 text-xl hover:text-2xl duration-300 cursor-pointer" />
+                <FaTrash
+                  onClick={() => handleDelete(resource._id)}
+                  className="ml-4 text-red-600 text-xl hover:text-2xl duration-300 cursor-pointer"
+                />
               </td>
             </tr>
           ))}
