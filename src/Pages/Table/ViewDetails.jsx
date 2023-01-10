@@ -8,7 +8,7 @@ const ViewDetails = ({ modalData }) => {
       <input type="checkbox" id="view_modal" className="modal-toggle" />
       <div className="modal">
         <div className="">
-          <div className=" modal-box relative flex flex-col justify-center w-96 py-16 bg-yellow-400 shadow-md rounded-xl sm:px-12 border bottom-4 border-blue-500">
+          <div className=" modal-box relative flex flex-col justify-center w-96 py-16 bg-gradient-to-t from-yellow-500 to-white shadow-md rounded-xl sm:px-12 border bottom-4 border-blue-500">
             <label
               htmlFor="view_modal"
               className="btn btn-sm bg-red-500 hover:bg-red-700 btn-circle absolute right-2 top-2"

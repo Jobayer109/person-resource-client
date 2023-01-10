@@ -3,7 +3,7 @@ import FormModal from "./FormModal";
 
 const Form = () => {
   return (
-    <div className="hero pb-20">
+    <div className="hero pb-0">
       <div className="hero-overlay bg-opacity-70"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="">

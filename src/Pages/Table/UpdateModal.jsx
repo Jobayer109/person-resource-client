@@ -34,7 +34,7 @@ const UpdateModal = ({ modalData }) => {
     <div>
       <input type="checkbox" id="people-update-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box relative bg-yellow-400 w-96">
+        <div className="modal-box relative bg-gradient-to-b from-yellow-500 to-white w-96">
           <label
             htmlFor="people-update-modal"
             className="btn btn-sm btn-circle bg-red-600 hover:bg-red-700 absolute right-2 top-2"

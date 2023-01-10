@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
-const FormModal = () => {
+const FormModal = ({ refetch }) => {
   const {
     register,
     handleSubmit,
@@ -29,6 +29,7 @@ const FormModal = () => {
         console.log(data);
         if (data.acknowledged) {
           toast.success("Info added successfully");
+          refetch();
         }
         if (data.acknowledged === false) {
           toast.error(data.message);
@@ -39,7 +40,7 @@ const FormModal = () => {
     <div>
       <input type="checkbox" id="person_resource_modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box relative w-96 bg-yellow-400">
+        <div className="modal-box relative w-96 bg-gradient-to-t from-yellow-500 to-white">
           <label
             htmlFor="person_resource_modal"
             className="btn btn-sm btn-circle absolute right-2 top-2 bg-red-600 hover:bg-red-700"

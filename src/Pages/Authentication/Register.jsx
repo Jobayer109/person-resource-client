@@ -57,8 +57,9 @@ const Register = () => {
           placeholder="Your name"
           className="border w-80 p-3 bg-yellow-300 text-sm rounded-md mt-2 border-black outline-none"
         />{" "}
+        <br />
         {errors.name?.type === "required" && (
-          <p className="text-xs text-red-700">Name is required</p>
+          <small className="text-xs text-red-700">Name is required</small>
         )}
         <br />
         <input
@@ -66,10 +67,11 @@ const Register = () => {
           name="email"
           {...register("email", { required: true })}
           placeholder="Email"
-          className="border w-80 p-3 text-sm bg-yellow-300 rounded-md mt-2 border-black outline-none"
+          className="border w-80 p-3 text-sm bg-yellow-300 rounded-md border-black outline-none"
         />{" "}
+        <br />
         {errors.email?.type === "required" && (
-          <p className="text-xs text-red-700">Email is required</p>
+          <small className="text-xs text-red-700">Email is required</small>
         )}
         <br />
         <input
@@ -80,10 +82,11 @@ const Register = () => {
             pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/,
           })}
           placeholder="Password"
-          className="border w-80 p-3 text-sm bg-yellow-300 rounded-md mt-2 border-black outline-none"
+          className="border w-80 p-3 text-sm bg-yellow-300 rounded-md border-black outline-none"
         />{" "}
+        <br />
         {errors.password?.type === "required" && (
-          <p className="text-xs text-red-700">Password is required</p>
+          <span className="text-xs text-red-700">Use (?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])</span>
         )}
         <br />
         <input
