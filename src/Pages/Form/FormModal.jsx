@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
-const FormModal = ({ refetch }) => {
+const FormModal = () => {
   const {
     register,
     handleSubmit,
@@ -29,7 +29,6 @@ const FormModal = ({ refetch }) => {
         console.log(data);
         if (data.acknowledged) {
           toast.success("Info added successfully");
-          refetch();
         }
         if (data.acknowledged === false) {
           toast.error(data.message);

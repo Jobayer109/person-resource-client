@@ -99,7 +99,7 @@ const Login = () => {
             />
           </div>
           <p className="text-xs mt-2">
-            New in Laptop Cloud ? {""}
+            Didn't have any account ? {""}
             <Link className="text-blue-600 text-sm  hover:underline" to="/register">
               create an account
             </Link>
