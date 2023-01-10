@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import { BounceLoader } from "react-spinners";
 import UpdateModal from "./UpdateModal";
+import ViewDetails from "./ViewDetails";
 
 const Table = () => {
   const [modalData, setModalData] = useState({
@@ -57,6 +58,14 @@ const Table = () => {
         });
     }
   };
+
+  const handleViewDetails = (id) => {
+    fetch(`http://localhost:5000/people/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setModalData(data);
+      });
+  };
   return (
     <div className="overflow-x-auto w-[90%] mx-auto">
       <table className="table w-full font-sans">
@@ -67,6 +76,7 @@ const Table = () => {
             <th>Last name</th>
             <th>Age</th>
             <th>Email</th>
+            <th>View details</th>
             <th>Update</th>
             <th>Delete</th>
           </tr>
@@ -79,6 +89,14 @@ const Table = () => {
               <td>{resource.lastName}</td>
               <td>{resource.age}</td>
               <td>{resource.email}</td>
+              <td>
+                <label htmlFor="view_modal">
+                  <FaEye
+                    onClick={() => handleViewDetails(resource._id)}
+                    className="ml-4 text-blue-700 text-xl hover:text-2xl duration-300  cursor-pointer"
+                  />
+                </label>
+              </td>
               <td>
                 <label htmlFor="people-update-modal">
                   <FaEdit
@@ -99,6 +117,7 @@ const Table = () => {
       </table>
 
       <UpdateModal modalData={modalData}></UpdateModal>
+      <ViewDetails modalData={modalData}></ViewDetails>
     </div>
   );
 };
